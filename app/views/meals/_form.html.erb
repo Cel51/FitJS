@@ -15,7 +15,16 @@
     <%= f.label :meal_type_id, "Type de repas" %><br>
     <%= f.select :meal_type_id, MealType.all.map { |type| [type.name, type.id]} %>
   </div>
+    <%= f.select :food_ids , Food.all.map { |food| [food.name, food.id]}, {}, {class: 'multiselect', multiple: true} %>
   <div class="actions">
     <%= f.submit "Confirmer"%>
   </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.multiselect').multiselect({
+                enableFiltering: true,
+            });
+        });
+    </script>
 <% end %>

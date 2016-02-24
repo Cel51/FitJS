@@ -4,8 +4,8 @@
 <br/>
 
 <div class="row">
-    <div class="col-xs-6 ">
-        <table class="table">
+    <div class="col-sm-3 ">
+        <table class="table table-bordered">
             <tbody>
                 <tr>
                     <th>Nom :</th>
@@ -30,34 +30,71 @@
             </tbody>
         </table>
     </div>
-    <div class="col-xs-6">
-        <table class="table">
+    <div class="col-sm-9">
+        <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Nom</th>
+                    <th>Repas</th>
+                    <th>Aliment</th>
+                    <th>Quantité</th>
+                    <th>Protéines</th>
+                    <th>Glucides</th>
+                    <th>Lipides</th>
+                    <th>Calories</th>
                 </tr>
             </thead>
 
             <tbody>
+                <%
+                   t_protein = t_carbohydrate = t_lipid = t_calorie = 0.to_f
+               %>
                 <% @meals.each do |meal| %>
-                    <tr>
-                      <% meal.foods.each do |food| %>
-                          <td>adf<%= food.name %></td>
-                      <% end %>
+                    <tr class="info">
+                        <%
+                           protein = carbohydrate = lipid = calorie = 0.to_f
+                           meal.foods.each do |food|
+                             t_protein += food.protein
+                             t_carbohydrate += food.carbohydrate
+                             t_lipid += food.lipid
+                             t_calorie += food.calorie
+                             protein += food.protein
+                             carbohydrate += food.carbohydrate
+                             lipid += food.lipid
+                             calorie += food.calorie
+                           end
+                        %>
                         <td><%= meal.meal_type.name %></td>
+                        <td></td><td></td>
+                        <td><%= protein %></td>
+                        <td><%= carbohydrate %></td>
+                        <td><%= lipid %></td>
+                        <td><%= calorie %></td>
                     </tr>
+
+                    <% meal.foods.each do |food| %>
+                        <tr>
+                            <td></td>
+                            <td><%= food.name %></td>
+                            <td><%= food.weight %></td>
+                            <td><%= food.protein %></td>
+                            <td><%= food.carbohydrate %></td>
+                            <td><%= food.lipid %></td>
+                            <td><%= food.calorie %></td>
+                        </tr>
+                    <% end %>
+
                 <% end %>
+            <tr class="warning">
+              <td colspan="3"> Total restant aujourd'hui </td>
+              <td><%=@user.protein - t_protein %></td>
+              <td><%=@user.carbohydrate - t_carbohydrate %></td>
+              <td><%=@user.lipid - t_lipid %></td>
+              <td><%=@user.calorie - t_calorie %></td>
+            </tr>
             </tbody>
         </table>
     </div>
 </div>
-<% @meals.each do |meal| %>
-      <% meal.foods.each do |food| %>
-          <%= food %>
-      <% end %>
-      <%= meal.meal_type.name %>
-
-<% end %>
 
 
 <h3> Changer d'utilisateur </h3>

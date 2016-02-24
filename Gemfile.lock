@@ -43,6 +43,8 @@ GEM
       debug_inspector (>= 0.0.1)
     bootstrap-generators (3.3.4)
       railties (>= 3.1.0)
+    bootstrap-multiselect-rails (0.9.9)
+      rails (>= 4.0.0)
     bootstrap-sass (3.2.0.2)
       sass (~> 3.2)
     builder (3.2.2)
@@ -150,6 +152,7 @@ PLATFORMS
 DEPENDENCIES
   autoprefixer-rails
   bootstrap-generators (~> 3.3.4)
+  bootstrap-multiselect-rails
   bootstrap-sass (~> 3.2.0)
   byebug
   coffee-rails (~> 4.1.0)

@@ -30,6 +30,8 @@ class MealsController < ApplicationController
     @meal.user = User.find(session[:current_user_id])
     @meal.date = Date.today()
 
+    puts meal_params[:foods]
+
 
     respond_to do |format|
      if @meal.save
@@ -45,6 +47,10 @@ class MealsController < ApplicationController
   # PATCH/PUT /meals/1
   # PATCH/PUT /meals/1.json
   def update
+    @meal.user = User.find(session[:current_user_id])
+    @meal.date = Date.today()
+
+    logger.info(@meal.foods)
 
     respond_to do |format|
       if @meal.update(meal_params)
@@ -75,6 +81,6 @@ class MealsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def meal_params
-      params.require(:meal).permit(:user_id, :meal_type_id, :date)
+      params.require(:meal).permit(:user_id, :meal_type_id, :date, :food_ids => [])
     end
 end

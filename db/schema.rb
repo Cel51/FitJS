@@ -13,14 +13,8 @@
 
 ActiveRecord::Schema.define(version: 20160224121210) do
 
-  create_table "aliments_meals", id: false, force: :cascade do |t|
-    t.integer "meal_id",    limit: 4, null: false
-    t.integer "aliment_id", limit: 4, null: false
-  end
-
   create_table "foods", force: :cascade do |t|
     t.string   "name",         limit: 255
-    t.float    "weight",       limit: 24
     t.float    "protein",      limit: 24
     t.float    "carbohydrate", limit: 24
     t.float    "lipid",        limit: 24
@@ -30,9 +24,13 @@ ActiveRecord::Schema.define(version: 20160224121210) do
   end
 
   create_table "foods_meals", id: false, force: :cascade do |t|
-    t.integer "meal_id", limit: 4, null: false
-    t.integer "food_id", limit: 4, null: false
+    t.integer "meal_id",  limit: 4,  null: false
+    t.integer "food_id",  limit: 4,  null: false
+    t.float   "quantity", limit: 24
   end
+
+  add_index "foods_meals", ["food_id", "meal_id"], name: "index_foods_meals_on_food_id_and_meal_id", using: :btree
+  add_index "foods_meals", ["meal_id", "food_id"], name: "index_foods_meals_on_meal_id_and_food_id", using: :btree
 
   create_table "meal_types", force: :cascade do |t|
     t.string   "name",       limit: 255

@@ -10,5 +10,31 @@
   <%= @meal.date.to_date %>
 </p>
 
+<h4>Nourriture</h4>
+<table class="table">
+    <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Protéines</th>
+      <th>Glucides</th>
+      <th>Lipides</th>
+      <th>Calories</th>
+    </tr>
+    </thead>
+  <tbody>
+        <% @meal.foods.each do |food| %>
+      <tr>
+          <td><%= food.name %></td>
+          <td><%= food.protein %></td>
+          <td><%= food.carbohydrate %></td>
+          <td><%= food.lipid %></td>
+          <td><%= food.calorie %></td>
+      </tr>
+        <% end %>
+  </tbody>
+</table>
+<br/>
+
+
 <%= link_to 'Editer', edit_meal_path(@meal) %> |
 <%= link_to 'Retour', meals_path %>

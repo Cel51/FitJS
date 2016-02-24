@@ -1,3 +1,4 @@
 class Food < ActiveRecord::Base
-  has_and_belongs_to_many :meals
+  has_many :meal_foods
+  has_many :meals, :through => :meal_foods
 end
