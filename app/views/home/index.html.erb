@@ -1,0 +1,38 @@
+<h1>Bienvenue <%= User.find(session[:current_user_id]).name %> </h1>
+
+<br/>
+<br/>
+
+<div class="row">
+<div class="col-xs-6 ">
+  <table class="table">
+    <tr>
+      <th>Nom :</th>
+      <td><%= @user.name %></td>
+    </tr>
+    <tr>
+      <th>Protéines max :</th>
+      <td><%= @user.protein %></td>
+    </tr>
+    <tr>
+      <th>Glucides max :</th>
+      <td><%= @user.carbohydrate %></td>
+    </tr>
+    <tr>
+      <th>Lipides max :</th>
+      <td><%= @user.lipid %></td>
+    </tr>
+    <tr>
+      <th>Calories max :</th>
+      <td><%= @user.calorie %></td>
+    </tr>
+  </table>
+</div>
+</div>
+
+<h3> Changer d'utilisateur </h3>
+<%= form_tag("/change") do |f| %>
+    <% users = User.all.map { |user| [user.name, user.id]} %>
+    <select name="user"><%= options_for_select(users, session[:current_user_id]) %></select>
+    <%= submit_tag "Confirmer" %>
+<% end %>

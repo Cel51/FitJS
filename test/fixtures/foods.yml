@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  weight: 9.99
+  protein: 9.99
+  carbohydrate: 9.99
+  lipid: 9.99
+  calorie: 9.99
+
+two:
+  name: MyString
+  weight: 9.99
+  protein: 9.99
+  carbohydrate: 9.99
+  lipid: 9.99
+  calorie: 9.99

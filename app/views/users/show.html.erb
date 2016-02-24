@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nom:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Protéines (g):</strong>
+  <%= @user.protein %>
+</p>
+
+<p>
+  <strong>Glucides (g):</strong>
+  <%= @user.carbohydrate %>
+</p>
+
+<p>
+  <strong>Lipides (g):</strong>
+  <%= @user.lipid %>
+</p>
+
+<p>
+  <strong>Calories (g):</strong>
+  <%= @user.calorie %>
+</p>
+
+<%= link_to 'Editer', edit_user_path(@user) %> |
+<%= link_to 'Retour', users_path %>
