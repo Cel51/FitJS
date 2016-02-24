@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Type Repas:</strong>
+  <%= @meal.meal_type.name %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @meal.date.to_date %>
+</p>
+
+<%= link_to 'Editer', edit_meal_path(@meal) %> |
+<%= link_to 'Retour', meals_path %>

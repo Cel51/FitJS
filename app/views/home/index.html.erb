@@ -4,31 +4,61 @@
 <br/>
 
 <div class="row">
-<div class="col-xs-6 ">
-  <table class="table">
-    <tr>
-      <th>Nom :</th>
-      <td><%= @user.name %></td>
-    </tr>
-    <tr>
-      <th>Protéines max :</th>
-      <td><%= @user.protein %></td>
-    </tr>
-    <tr>
-      <th>Glucides max :</th>
-      <td><%= @user.carbohydrate %></td>
-    </tr>
-    <tr>
-      <th>Lipides max :</th>
-      <td><%= @user.lipid %></td>
-    </tr>
-    <tr>
-      <th>Calories max :</th>
-      <td><%= @user.calorie %></td>
-    </tr>
-  </table>
+    <div class="col-xs-6 ">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Nom :</th>
+                    <td><%= @user.name %></td>
+                </tr>
+                <tr>
+                    <th>Protéines max :</th>
+                    <td><%= @user.protein %></td>
+                </tr>
+                <tr>
+                    <th>Glucides max :</th>
+                    <td><%= @user.carbohydrate %></td>
+                </tr>
+                <tr>
+                    <th>Lipides max :</th>
+                    <td><%= @user.lipid %></td>
+                </tr>
+                <tr>
+                    <th>Calories max :</th>
+                    <td><%= @user.calorie %></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-6">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% @meals.each do |meal| %>
+                    <tr>
+                      <% meal.foods.each do |food| %>
+                          <td>adf<%= food.name %></td>
+                      <% end %>
+                        <td><%= meal.meal_type.name %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
 </div>
-</div>
+<% @meals.each do |meal| %>
+      <% meal.foods.each do |food| %>
+          <%= food %>
+      <% end %>
+      <%= meal.meal_type.name %>
+
+<% end %>
+
 
 <h3> Changer d'utilisateur </h3>
 <%= form_tag("/change") do |f| %>
