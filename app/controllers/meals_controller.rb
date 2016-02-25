@@ -30,9 +30,6 @@ class MealsController < ApplicationController
     @meal.user = User.find(session[:current_user_id])
     @meal.date = Date.today()
 
-    puts meal_params[:foods]
-
-
     respond_to do |format|
      if @meal.save
         format.html { redirect_to @meal, notice: 'Repas crée' }
@@ -50,10 +47,24 @@ class MealsController < ApplicationController
     @meal.user = User.find(session[:current_user_id])
     @meal.date = Date.today()
 
-    logger.info(@meal.foods)
+    @meal.foods.each do |food|
+      logger.info "LOG " + food.name
+      logger.info "Test " + @meal.food_meals.first.c_calorie.to_s
+      # @meal.food_meals.c_calorie = 100/100 * food.calorie
+    end
 
     respond_to do |format|
       if @meal.update(meal_params)
+        @meal.foods.each do |food|
+          f = FoodMeal.where(meal_id: @meal.id, food_id: food.id).first
+          f.quantity = 100
+          f.c_carbohydrate = food.carbohydrate
+          f.c_lipid = food.lipid
+          f.c_calorie = food.calorie
+          f.c_protein = food.protein
+          f.save
+        end
+
         format.html { redirect_to @meal, notice: 'Repas mis à jour' }
         format.json { render :show, status: :ok, location: @meal }
       else

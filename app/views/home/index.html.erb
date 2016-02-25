@@ -1,4 +1,4 @@
-<h1>Bienvenue <%= User.find(session[:current_user_id]).name %> </h1>
+<h1>Bienvenue <%= @user.name %> </h1>
 
 <br/>
 <br/>
@@ -51,7 +51,7 @@
                 <% @meals.each do |meal| %>
                     <tr class="info">
                         <%
-                           protein = carbohydrate = lipid = calorie = 0.to_f
+                           protein = carbohydrate = lipid = calorie = 0.to_d
                            meal.foods.each do |food|
                              t_protein += food.protein
                              t_carbohydrate += food.carbohydrate
@@ -75,7 +75,7 @@
                         <tr>
                             <td></td>
                             <td><%= food.name %></td>
-                            <td><%= food.weight %></td>
+                            <td><%= food.food_meals.first.quantity %></td>
                             <td><%= food.protein %></td>
                             <td><%= food.carbohydrate %></td>
                             <td><%= food.lipid %></td>

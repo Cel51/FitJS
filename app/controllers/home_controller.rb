@@ -4,8 +4,14 @@ class HomeController < ApplicationController
       session[:current_user_id] = User.first.id
     end
 
-    @user = User.find(session[:current_user_id])
+    if User.where(:id => session[:current_user_id]).empty?
+      @user = User.first
+    else
+      @user = User.find(session[:current_user_id])
+    end
+
     @meals = Meal.where(:user_id => session[:current_user_id], :date => Date.today)
+
   end
   def changeUser
     session[:current_user_id] = User.find(params[:user]).id

@@ -11,7 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160224121210) do
+ActiveRecord::Schema.define(version: 20160224191225) do
+
+  create_table "food_meals", force: :cascade do |t|
+    t.integer  "food_id",        limit: 4
+    t.integer  "meal_id",        limit: 4
+    t.float    "quantity",       limit: 24
+    t.float    "c_protein",      limit: 24
+    t.float    "c_carbohydrate", limit: 24
+    t.float    "c_lipid",        limit: 24
+    t.float    "c_calorie",      limit: 24
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "food_meals", ["food_id"], name: "index_food_meals_on_food_id", using: :btree
+  add_index "food_meals", ["meal_id"], name: "index_food_meals_on_meal_id", using: :btree
 
   create_table "foods", force: :cascade do |t|
     t.string   "name",         limit: 255
@@ -22,15 +37,6 @@ ActiveRecord::Schema.define(version: 20160224121210) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
-
-  create_table "foods_meals", id: false, force: :cascade do |t|
-    t.integer "meal_id",  limit: 4,  null: false
-    t.integer "food_id",  limit: 4,  null: false
-    t.float   "quantity", limit: 24
-  end
-
-  add_index "foods_meals", ["food_id", "meal_id"], name: "index_foods_meals_on_food_id_and_meal_id", using: :btree
-  add_index "foods_meals", ["meal_id", "food_id"], name: "index_foods_meals_on_meal_id_and_food_id", using: :btree
 
   create_table "meal_types", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -59,6 +65,8 @@ ActiveRecord::Schema.define(version: 20160224121210) do
     t.datetime "updated_at",               null: false
   end
 
+  add_foreign_key "food_meals", "foods"
+  add_foreign_key "food_meals", "meals"
   add_foreign_key "meals", "meal_types"
   add_foreign_key "meals", "users"
 end
