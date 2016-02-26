@@ -2,7 +2,7 @@
 
 <p>
   <strong>Type Repas:</strong>
-  <%= @meal.meal_type.name %>
+  <%=  @meal.meal_type.name %>
 </p>
 
 <p>
@@ -15,6 +15,7 @@
     <thead>
     <tr>
       <th>Nom</th>
+      <th>Quantité</th>
       <th>Protéines</th>
       <th>Glucides</th>
       <th>Lipides</th>
@@ -22,13 +23,14 @@
     </tr>
     </thead>
   <tbody>
-        <% @meal.foods.each do |food| %>
+        <% @meal.food_meals.each do |food| %>
       <tr>
-          <td><%= food.name %></td>
-          <td><%= food.protein %></td>
-          <td><%= food.carbohydrate %></td>
-          <td><%= food.lipid %></td>
-          <td><%= food.calorie %></td>
+          <td><%= food.food.name %></td>
+          <td><%= food.quantity %></td>
+          <td><%= food.c_protein %></td>
+          <td><%= food.c_carbohydrate %></td>
+          <td><%= food.c_lipid %></td>
+          <td><%= food.c_calorie %></td>
       </tr>
         <% end %>
   </tbody>

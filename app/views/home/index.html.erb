@@ -46,50 +46,50 @@
 
             <tbody>
                 <%
-                   t_protein = t_carbohydrate = t_lipid = t_calorie = 0.to_f
+                   total_protein = total_carbohydrate = total_lipid = total_calorie = 0.to_d
                %>
                 <% @meals.each do |meal| %>
                     <tr class="info">
                         <%
-                           protein = carbohydrate = lipid = calorie = 0.to_d
-                           meal.foods.each do |food|
-                             t_protein += food.protein
-                             t_carbohydrate += food.carbohydrate
-                             t_lipid += food.lipid
-                             t_calorie += food.calorie
-                             protein += food.protein
-                             carbohydrate += food.carbohydrate
-                             lipid += food.lipid
-                             calorie += food.calorie
+                           meal_protein = meal_carbohydrate = meal_lipid = meal_calorie = 0.to_d
+                           meal.food_meals.each do |food|
+                             t_protein += food.c_protein.to_d
+                             t_carbohydrate += food.c_carbohydrate.to_d
+                             t_lipid += food.c_lipid.to_d
+                             t_calorie += food.c_calorie.to_d
+                             protein += food.c_protein.to_d
+                             carbohydrate += food.c_carbohydrate.to_d
+                             lipid += food.c_lipid.to_d
+                             calorie += food.c_calorie.to_d
                            end
                         %>
                         <td><%= meal.meal_type.name %></td>
                         <td></td><td></td>
-                        <td><%= protein %></td>
-                        <td><%= carbohydrate %></td>
-                        <td><%= lipid %></td>
-                        <td><%= calorie %></td>
+                        <td><%= protein.to_d %></td>
+                        <td><%= carbohydrate.to_d %></td>
+                        <td><%= lipid.to_d %></td>
+                        <td><%= calorie.to_d %></td>
                     </tr>
 
-                    <% meal.foods.each do |food| %>
+                    <% meal.food_meals.each do |food| %>
                         <tr>
                             <td></td>
-                            <td><%= food.name %></td>
-                            <td><%= food.food_meals.first.quantity %></td>
-                            <td><%= food.protein %></td>
-                            <td><%= food.carbohydrate %></td>
-                            <td><%= food.lipid %></td>
-                            <td><%= food.calorie %></td>
+                            <td><%= food.food.name %></td>
+                            <td><%= food.quantity %></td>
+                            <td><%= food.c_protein %></td>
+                            <td><%= food.c_carbohydrate %></td>
+                            <td><%= food.c_lipid %></td>
+                            <td><%= food.c_calorie %></td>
                         </tr>
                     <% end %>
 
                 <% end %>
             <tr class="warning">
               <td colspan="3"> Total restant aujourd'hui </td>
-              <td><%=@user.protein - t_protein %></td>
-              <td><%=@user.carbohydrate - t_carbohydrate %></td>
-              <td><%=@user.lipid - t_lipid %></td>
-              <td><%=@user.calorie - t_calorie %></td>
+              <td><%=@user.protein.to_d - t_protein %></td>
+              <td><%=@user.carbohydrate.to_d - t_carbohydrate %></td>
+              <td><%=@user.lipid.to_d - t_lipid %></td>
+              <td><%=@user.calorie.to_d - t_calorie %></td>
             </tr>
             </tbody>
         </table>

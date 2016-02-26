@@ -19,6 +19,6 @@ MealType.create(name: "Workout")
 MealType.create(name: "Post-workout")
 MealType.create(name: "Calcul repas maison")
 Food.create(name: "Aubergine", protein: 1.01, carbohydrate: 5.7, lipid: 0.19, calorie: 24)
-Food.create(name: "test", protein: 1.01, carbohydrate: 5.7, lipid: 0.19, calorie: 24)
-Food.create(name: "test2", protein: 1.01, carbohydrate: 5.7, lipid: 0.19, calorie: 24)
+Food.create(name: "Test", protein: 4.01, carbohydrate: 25.7, lipid: 7.19, calorie: 50)
+Food.create(name: "Test-2", protein: 2.21, carbohydrate: 32.7, lipid: 9.19, calorie: 77.7)
 
