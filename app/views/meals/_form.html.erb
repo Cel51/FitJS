@@ -2,8 +2,8 @@
     <fieldset id="recipe-meta">
       <ol>
         <li class="control-group">
-          <%= f.label :meal_type, "Recipe Name", class: "control-label" %>
-          <div class="controls"><%= f.text_field :meal_type %></div>
+          <%= f.label :meal_type, "Type de nourriture", class: "control-label" %>
+          <%= f.select :meal_type , MealType.all.map { |type| [type.name, type.id]}, {} %>
         </li>
       </ol>
     </fieldset>

@@ -2,7 +2,7 @@
 
 <p>
   <strong>Type Repas:</strong>
-  <%=  @meal.meal_type.name %>
+  <%= @meal.meal_type.name %>
 </p>
 
 <p>
@@ -26,7 +26,7 @@
         <% @meal.food_meals.each do |food| %>
       <tr>
           <td><%= food.food.name %></td>
-          <td><%= food.quantity %></td>
+          <td><%= food.c_protein %></td>
           <td><%= food.c_protein %></td>
           <td><%= food.c_carbohydrate %></td>
           <td><%= food.c_lipid %></td>

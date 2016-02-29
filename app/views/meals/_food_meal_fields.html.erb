@@ -3,7 +3,7 @@
     <%= f.label :quantity, "Amount:" %>
     <%= f.text_field :quantity %>
 
-    <%= f.select :food , Food.all.map { |food| [food.name, food.id]}, {}, {class: 'multiselect', multiple: true} %>
+    <%= f.select :food , Food.all.map { |food| [food.name, food.id]}, {} %>
 
     <%= link_to_remove_association "remove", f %>
   </div>
