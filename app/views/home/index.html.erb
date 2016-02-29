@@ -2,9 +2,11 @@
 
 <br/>
 <br/>
-
 <div class="row">
-    <div class="col-sm-3 ">
+  <div class="col-sm-12">
+    <h3> Résumé pour <%= session[:current_selected_date] %> </h3>
+  </div>
+    <div class="col-sm-3">
         <table class="table table-bordered">
             <tbody>
                 <tr>
@@ -45,61 +47,90 @@
             </thead>
 
             <tbody>
-                <%
-                   total_protein = total_carbohydrate = total_lipid = total_calorie = 0.to_d
-               %>
-                <% @meals.each do |meal| %>
-                    <tr class="info">
-                        <%
-                           meal_protein = meal_carbohydrate = meal_lipid = meal_calorie = 0.to_d
-                           meal.food_meals.each do |food|
-                             t_protein += food.c_protein.to_d
-                             t_carbohydrate += food.c_carbohydrate.to_d
-                             t_lipid += food.c_lipid.to_d
-                             t_calorie += food.c_calorie.to_d
-                             protein += food.c_protein.to_d
-                             carbohydrate += food.c_carbohydrate.to_d
-                             lipid += food.c_lipid.to_d
-                             calorie += food.c_calorie.to_d
-                           end
-                        %>
-                        <td><%= meal.meal_type.name %></td>
-                        <td></td><td></td>
-                        <td><%= protein.to_d %></td>
-                        <td><%= carbohydrate.to_d %></td>
-                        <td><%= lipid.to_d %></td>
-                        <td><%= calorie.to_d %></td>
-                    </tr>
+                <% day_protein = day_carbohydrate = day_lipid = day_calorie = 0.to_f %>
 
-                    <% meal.food_meals.each do |food| %>
+                <% @meals.each do |meal| %>
+
+                <% meal_quantity = meal_protein = meal_carbohydrate = meal_lipid = meal_calorie = 0.to_f %>
+                <%
+                    meal.food_meals.each do |food_meal|
+                        meal_quantity += food_meal.quantity
+                        meal_protein += ((food_meal.quantity/100)*food_meal.food.protein)
+                        meal_carbohydrate += ((food_meal.quantity/100)*food_meal.food.carbohydrate)
+                        meal_lipid += ((food_meal.quantity/100)*food_meal.food.lipid)
+                        meal_calorie += ((food_meal.quantity/100)*food_meal.food.calorie)
+                    end
+                   day_protein += meal_protein
+                   day_carbohydrate += meal_carbohydrate
+                   day_lipid += meal_lipid
+                   day_calorie += meal_calorie
+                %>
+                   <tr class="info">
+                        <td><%= meal.meal_type.name %></td>
+                        <td></td>
+                        <td><%= meal_quantity.round(2) %></td>
+                        <td><%= meal_protein.round(2) %></td>
+                        <td><%= meal_carbohydrate.round(2) %></td>
+                        <td><%= meal_lipid.round(2) %></td>
+                        <td><%= meal_calorie.round(2) %></td>
+                    </tr>
+                    <% meal.food_meals.each do |food_meal| %>
                         <tr>
                             <td></td>
-                            <td><%= food.food.name %></td>
-                            <td><%= food.quantity %></td>
-                            <td><%= food.c_protein %></td>
-                            <td><%= food.c_carbohydrate %></td>
-                            <td><%= food.c_lipid %></td>
-                            <td><%= food.c_calorie %></td>
+                            <td><%= food_meal.food.name %></td>
+                            <td><%= food_meal.quantity %></td>
+                            <td><%= ((food_meal.quantity/100)*food_meal.food.protein).round(2) %></td>
+                            <td><%= ((food_meal.quantity/100)*food_meal.food.carbohydrate).round(2) %></td>
+                            <td><%= ((food_meal.quantity/100)*food_meal.food.lipid).round(2) %></td>
+                            <td><%= ((food_meal.quantity/100)*food_meal.food.calorie).round(2) %></td>
                         </tr>
                     <% end %>
-
                 <% end %>
-            <tr class="warning">
+            <tr class="success">
               <td colspan="3"> Total restant aujourd'hui </td>
-              <td><%=@user.protein.to_d - t_protein %></td>
-              <td><%=@user.carbohydrate.to_d - t_carbohydrate %></td>
-              <td><%=@user.lipid.to_d - t_lipid %></td>
-              <td><%=@user.calorie.to_d - t_calorie %></td>
+
+              <% if (@user.protein-day_protein).round(2) < 0 %>
+                <td class="danger"><%= (@user.protein-day_protein).round(2) %></td>
+              <% else %>
+                <td><%= (@user.protein-day_protein).round(2) %></td>
+              <% end %>
+
+              <% if (@user.carbohydrate-day_carbohydrate).round(2) < 0 %>
+                  <td class="danger"><%= (@user.carbohydrate-day_carbohydrate).round(2) %></td>
+              <% else %>
+                  <td><%= (@user.carbohydrate-day_carbohydrate).round(2) %></td>
+              <% end %>
+
+              <% if (@user.lipid-day_lipid).round(2) < 0 %>
+                  <td class="danger"><%= (@user.lipid-day_lipid).round(2) %></td>
+              <% else %>
+                  <td><%= (@user.lipid-day_lipid).round(2) %></td>
+              <% end %>
+
+              <% if (@user.calorie-day_calorie).round(2) < 0 %>
+                  <td class="danger"><%= (@user.calorie-day_calorie).round(2) %></td>
+              <% else %>
+                  <td><%= (@user.calorie-day_calorie).round(2) %></td>
+              <% end %>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
-
-
-<h3> Changer d'utilisateur </h3>
-<%= form_tag("/change") do |f| %>
-    <% users = User.all.map { |user| [user.name, user.id]} %>
-    <select name="user"><%= options_for_select(users, session[:current_user_id]) %></select>
-    <%= submit_tag "Confirmer" %>
-<% end %>
+<div class="row">
+  <div class="col-sm-6">
+    <h3> Changer d'utilisateur </h3>
+    <%= form_tag("/changeUser") do |f| %>
+        <% users = User.all.map { |user| [user.name, user.id]} %>
+        <select name="user"><%= options_for_select(users, session[:current_user_id]) %></select>
+        <%= submit_tag "Confirmer" %>
+    <% end %>
+  </div>
+  <div class="col-sm-6">
+    <h3>Changer de date</h3>
+    <%= form_tag("/changeDate") do |f| %>
+        <%= date_field :date, :display, value: session[:current_selected_date] %>
+        <%= submit_tag "Confirmer" %>
+    <% end %>
+  </div>
+</div>

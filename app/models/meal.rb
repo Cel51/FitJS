@@ -5,5 +5,4 @@ class Meal < ActiveRecord::Base
   has_many :foods, :through => :food_meals
 
   accepts_nested_attributes_for :food_meals, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :foods
 end

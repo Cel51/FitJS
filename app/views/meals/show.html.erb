@@ -23,16 +23,16 @@
     </tr>
     </thead>
   <tbody>
-        <% @meal.food_meals.each do |food| %>
+    <% @meal.food_meals.each do |food_meal| %>
       <tr>
-          <td><%= food.food.name %></td>
-          <td><%= food.c_protein %></td>
-          <td><%= food.c_protein %></td>
-          <td><%= food.c_carbohydrate %></td>
-          <td><%= food.c_lipid %></td>
-          <td><%= food.c_calorie %></td>
+          <td><%= food_meal.food.name %></td>
+          <td><%= food_meal.quantity %></td>
+          <td><%= ((food_meal.quantity/100)*food_meal.food.protein).round(2) %></td>
+          <td><%= ((food_meal.quantity/100)*food_meal.food.carbohydrate).round(2) %></td>
+          <td><%= ((food_meal.quantity/100)*food_meal.food.lipid).round(2) %></td>
+          <td><%= ((food_meal.quantity/100)*food_meal.food.calorie).round(2) %></td>
       </tr>
-        <% end %>
+    <% end %>
   </tbody>
 </table>
 <br/>

@@ -1,21 +1,16 @@
 <%= form_for @meal, html: {class: "form-horizontal"} do |f| %>
-    <fieldset id="recipe-meta">
-      <ol>
-        <li class="control-group">
-          <%= f.label :meal_type, "Type de nourriture", class: "control-label" %>
-          <%= f.select :meal_type , MealType.all.map { |type| [type.name, type.id]}, {} %>
-        </li>
-      </ol>
-    </fieldset>
-
-    <fieldset id="recipe-ingredients">
-      <ol>
-        <%= f.fields_for :food_meals do |quantity| %>
-            <%= render 'food_meal_fields', f: quantity %>
+    <div id="meal-meta">
+        <%= f.label :meal_type_id, "Type de nourriture", class: "control-label" %>
+        <%= f.select :meal_type_id , MealType.all.map { |type| [type.name, type.id]}, {} %>
+    </div>
+    <br/>
+    <fieldset id="meal-food">
+        <%= f.fields_for :food_meals do |ff| %>
+            <%= render 'food_meal_fields', f: ff %>
         <% end %>
-      </ol>
-      <%= link_to_add_association 'add ingredient', f, :food_meals %>
     </fieldset>
-
+    <br/>
+    <%= link_to_add_association 'add ingredient', f, :food_meals, :'data-association-insertion-method' => 'after', :'data-association-insertion-node' => '#meal-food'  %>
+    <br/>
     <%= f.submit %>
 <% end %>

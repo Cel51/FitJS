@@ -29,8 +29,6 @@ class MealsController < ApplicationController
 
     @meal.user = User.find(session[:current_user_id])
     @meal.date = Date.today()
-
-
     respond_to do |format|
      if @meal.save
         format.html { redirect_to @meal, notice: 'Repas crée' }
@@ -77,6 +75,6 @@ class MealsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def meal_params
-      params.require(:meal).permit(:user_id, :meal_type_id, :date, :meal_foods_tasks => [:food_id, :quantity, :_destroy])
+      params.require(:meal).permit(:meal_type_id, :date, food_meals_attributes: [:id, :food_id, :quantity, :_destroy])
     end
 end
